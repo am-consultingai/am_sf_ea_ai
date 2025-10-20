@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Work Smarter Automation and AI for Executive Assistants</title>
+<meta name="description" content="A four session hands on program for Salesforce Executive Assistants that builds real skills to use AI and automation effectively with approved tools." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Heebo:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1221;
+    --bg-soft:#151936;
+    --card:#101429;
+    --ink:#e9edff;
+    --muted:#aeb6e6;
+    --brand:#7c9cff;
+    --brand-2:#64fbd2;
+    --accent:#ffd166;
+    --ok:#5cf2b5;
+    --radius:18px;
+    --shadow:0 10px 25px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.04);
+    --bluecheck:#6aa8ff;
+  }
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;padding:0;
+    background:radial-gradient(1200px 800px at 90% -10%, #1e2450 0%, rgba(30,36,80,0) 60%), linear-gradient(180deg,#0b0e1b, #0f1221);
+    color:var(--ink);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height:1.45
+  }
+  /* Ensure Hebrew content uses a Hebrew-capable font */
+  :lang(he){
+    font-family: Heebo, "Noto Sans Hebrew", "Rubik", "Arial Hebrew", "Segoe UI", Tahoma, sans-serif;
+  }
+
+  a{color:var(--brand)}
+  img{max-width:100%; height:auto; display:block}
+  .wrap{max-width:1100px; padding:0 20px; margin:0 auto}
+
+  /* language visibility */
+  [data-lang="en"] [lang="he"]{display:none !important}
+  [data-lang="he"] [lang="en"]{display:none !important}
+
+  /* hero */
+  .hero{position:relative; padding:32px 0 24px}
+  .topbar{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px}
+  .topbar .left{display:flex; align-items:center; gap:12px}
+  .logo{height:64px}
+  .sf{height:50px}
+  .badge-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:10px}
+  .badge{background:linear-gradient(90deg, rgba(124,156,255,.15), rgba(100,251,210,.15)); border:1px solid rgba(124,156,255,.25); color:var(--ink); padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.3px; text-transform:uppercase}
+  .title{
+    font-weight:800; font-size:clamp(28px, 5vw, 54px); margin:8px 0 10px; line-height:1.05;
+    display:inline-block; white-space:nowrap; border-right:2px solid var(--brand); overflow:hidden
+  }
+  .subtitle{font-size:clamp(16px,2.3vw,20px); color:var(--muted); max-width:820px}
+  .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+  .btn{border:none; cursor:pointer; font-weight:700; padding:14px 18px; border-radius:12px; transition:.25s transform, .25s box-shadow; box-shadow: var(--shadow)}
+  .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#0a0d1c}
+  .btn-ghost{background:rgba(255,255,255,.06); color:var(--ink); border:1px solid rgba(255,255,255,.14)}
+  .btn:hover{transform:translateY(-2px)}
+  .lang-toggle{display:flex; gap:8px}
+  .lang-toggle button{background:rgba(255,255,255,.06); color:var(--ink); border:1px solid rgba(255,255,255,.14); padding:8px 10px; border-radius:10px; cursor:pointer}
+  .lang-toggle .active{background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#0a0d1c; border:0}
+
+  .hero-grid{margin-top:24px; display:grid; grid-template-columns:1.2fr .8fr; gap:18px}
+  .panel{
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+    border:1px solid rgba(124,156,255,.2);
+    border-radius:var(--radius);
+    padding:18px 18px;
+    box-shadow: var(--shadow);
+  }
+  .hero-image{border-radius:var(--radius); overflow:hidden; border:1px solid rgba(124,156,255,.25)}
+
+  section{padding:40px 0}
+  h2{font-size:clamp(22px,3.5vw,34px); margin:0 0 10px}
+  p.lead{color:var(--muted); margin-top:0; max-width:850px}
+  .grid-3{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+  .grid-2{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px}
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+    border:1px solid rgba(124,156,255,.2);
+    border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)
+  }
+  .card h3{margin:0 0 6px; font-size:20px}
+  ul{padding-left:18px; margin:10px 0}
+  li{margin:6px 0}
+  details{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:12px 14px}
+  details + details{margin-top:10px}
+  details summary{cursor:pointer; list-style:none; font-weight:600}
+  details summary::-webkit-details-marker{display:none}
+  details[open]{background:rgba(124,156,255,.08)}
+
+  .callout{
+    background:linear-gradient(90deg, rgba(100,251,210,.12), rgba(124,156,255,.12));
+    border:1px dashed rgba(124,156,255,.35);
+    padding:14px 16px; border-radius:12px; margin-top:12px
+  }
+
+  /* sessions: Option C layout */
+  .session{
+    display:grid;
+    grid-template-columns: 64px 1fr 140px;
+    gap:14px;
+    align-items:start;
+    margin-bottom:14px;
+  }
+  .session .num{
+    width:64px; height:64px; border-radius:14px; display:grid; place-items:center; font-weight:800; font-size:20px; color:#0b0f1f;
+    background:conic-gradient(from 180deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow)
+  }
+  .session h4{margin:2px 0 6px; font-size:18px}
+  .session .meta{font-size:12px; color:var(--muted); margin-bottom:8px}
+  .icon{width:22px; height:22px; vertical-align:middle; margin-left:8px}
+
+  .session-hero{
+    grid-column: 3;
+    align-self:start;
+    justify-self:end;
+    max-height: 120px;
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid rgba(124,156,255,.25);
+  }
+  .session-hero img{
+    width:140px;
+    height:120px;
+    object-fit:cover;
+    display:block;
+  }
+
+  /* outcomes etc */
+  footer{padding:28px 0 56px; color:var(--muted); border-top:1px solid rgba(255,255,255,.08)}
+  .footgrid{display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:center}
+
+  /* animations */
+  .reveal{opacity:0; transform:translateY(18px); transition: opacity .7s ease, transform .7s ease}
+  .reveal.show{opacity:1; transform:none}
+  .type{width:0ch; animation: typing 3.5s steps(40, end) forwards, caret 1s step-end infinite; border-right:2px solid var(--brand)}
+  @keyframes typing { from { width:0 } to { width:100% } }
+  @keyframes caret { 50% { border-color: transparent } }
+
+  /* responsive */
+  @media (max-width: 960px){
+    .hero-grid{grid-template-columns:1fr}
+    .grid-3{grid-template-columns:1fr}
+    .grid-2{grid-template-columns:1fr}
+    .footgrid{grid-template-columns:1fr}
+    .session{grid-template-columns: 56px 1fr}
+    .session-hero{grid-column: 2; justify-self:start; margin-top:8px; max-height:120px}
+    .session-hero img{width:100%; height:120px}
+  }
+
+  /* RTL adjustments */
+  html[dir="rtl"] body{direction:rtl}
+  html[dir="rtl"] .topbar .left{flex-direction:row-reverse}
+  html[dir="rtl"] .badge-row{justify-content:flex-start}
+  html[dir="rtl"] .hero-grid{grid-template-columns:.8fr 1.2fr}
+  html[dir="rtl"] .icon{margin-left:0; margin-right:8px}
+  html[dir="rtl"] .session{grid-template-columns:140px 1fr 64px} /* thumbnail | content | number visually right-to-left */
+  html[dir="rtl"] .session-hero{grid-column:1; justify-self:start}
+  html[dir="rtl"] .session .num{justify-self:end}
+</style>
+</head>
+<body data-lang="en">
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="left">
+        <a href="https://amconsultingai.com" target="_blank" rel="noopener" aria-label="AM Consulting website">
+          <img class="logo" src="assets/am_logo.png" alt="AM Consulting logo" />
+        </a>
+        <img class="sf" src="assets/sf.png" alt="Salesforce logo" />
+        <span class="badge" lang="en">Tailored and designed for Salesforce EA</span>
+        <span class="badge" lang="he">מותאם ומתוכנן במיוחד עבור עוזרי ועוזרות הנהלה של Salesforce</span>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button id="btn-en" class="active">EN</button>
+        <button id="btn-he">עברית</button>
+      </div>
+    </div>
+
+    <div class="badge-row reveal">
+      <span class="badge" lang="en">Salesforce approved tools only</span>
+      <span class="badge" lang="he">שימוש בכלים מאושרים על ידי Salesforce בלבד</span>
+
+      <span class="badge" lang="en">One hundred plus trained in Salesforce Israel</span>
+      <span class="badge" lang="he">מעל מאה משתתפים אומנו ב Salesforce ישראל</span>
+
+      <span class="badge" lang="en">Outstanding feedback</span>
+      <span class="badge" lang="he">משוב מצוין</span>
+    </div>
+
+    <h1 class="title type" lang="en">Work Smarter Automation and AI for Executive Assistants</h1>
+    <h1 class="title type" lang="he">עובדים חכם אוטומציה ובינה מלאכותית לעוזרי ועוזרות הנהלה</h1>
+
+    <p class="subtitle reveal" lang="en">
+      This program empowers Executive Assistants to master the skills of using AI effectively.
+      You will practice practical techniques that make your judgment stronger your communication clearer and your workflows faster.
+      You stay in control and AI works with you.
+    </p>
+    <p class="subtitle reveal" lang="he">
+      התכנית מחזקת את היכולת של עוזרי ועוזרות הנהלה להשתמש בבינה מלאכותית בצורה יעילה.
+      נתרגל שיטות מעשיות שמחזקות שיקול דעת מבהירות תקשורת ומזרזות תהליכי עבודה.
+      אתם נשארים בשליטה והבינה המלאכותית עובדת אתכם.
+    </p>
+
+    <div class="cta-row reveal" role="group" aria-label="Primary actions">
+      <a class="btn btn-primary" href="#sessions" aria-label="Explore sessions" lang="en">Explore sessions</a>
+      <a class="btn btn-primary" href="#sessions" aria-label="Explore sessions" lang="he">עיינו במפגשים</a>
+
+      <a class="btn btn-ghost" href="#outcomes" aria-label="See outcomes" lang="en">See outcomes</a>
+      <a class="btn btn-ghost" href="#outcomes" aria-label="See outcomes" lang="he">ראו תוצאות</a>
+    </div>
+
+    <div class="hero-grid">
+      <div class="panel reveal">
+        <h2 style="margin:6px 0 6px;" lang="en">Key takeaways from this workshop</h2>
+        <h2 style="margin:6px 0 6px;" lang="he">נקודות מרכזיות בסדנה</h2>
+
+        <ul lang="en">
+          <li><strong>Real confidence with AI</strong> proven prompts checklists and habits</li>
+          <li><strong>Faster workflows</strong> calendar travel and updates with light automation</li>
+          <li><strong>Clear communication</strong> better briefs summaries slides and pages</li>
+          <li><strong>Reusable assets</strong> templates and flows that you can use the same day</li>
+        </ul>
+        <ul lang="he">
+          <li><strong>ביטחון אמיתי עם בינה מלאכותית</strong> הנחיות צ׳ק ליסטים והרגלים מוכחים</li>
+          <li><strong>תהליכי עבודה מהירים</strong> יומן נסיעות ועדכונים עם אוטומציה קלה</li>
+          <li><strong>תקשורת ברורה</strong> תדריכים תקצירים מצגות ודפים טובים יותר</li>
+          <li><strong>נכסים לשימוש חוזר</strong> תבניות וזרימות עבודה שתוכלו להשתמש בהן מיד</li>
+        </ul>
+
+        <div class="callout" lang="en">Built for Salesforce Executive Assistants. Skills that create value right away.</div>
+        <div class="callout" lang="he">נבנה עבור עוזרי ועוזרות הנהלה של Salesforce. מיומנויות שמייצרות ערך מידי.</div>
+      </div>
+      <div class="hero-image reveal">
+        <img src="assets/EA.jpg" alt="Executive Assistants collaborating with laptops and AI tools" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Sessions -->
+  <section class="wrap" id="sessions">
+    <h2 class="reveal" lang="en">The four session journey</h2>
+    <h2 class="reveal" lang="he">מסע של ארבעה מפגשים</h2>
+
+    <p class="lead reveal" lang="en">Each session runs two hours. Hands on. Practical. Focused on quick wins that matter today.</p>
+    <p class="lead reveal" lang="he">כל מפגש נמשך שעתיים. מעשי. פרקטי. ממוקד תוצאות מהירות שחשובות כבר היום.</p>
+
+    <!-- Session 1 -->
+    <article class="card reveal">
+      <div class="session">
+        <div class="num">01</div>
+
+        <div>
+          <h4 lang="en">
+            The smart calendar and travel operations
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 3v3M17 3v3M3 9h18M5 12h6l8-3 1 2-7 3 4 5-2 1-5-4-3 7-2-1 3-8H5v-5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </h4>
+          <h4 lang="he">
+            יומן חכם ותפעול נסיעות
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 3v3M17 3v3M3 9h18M5 12h6l8-3 1 2-7 3 4 5-2 1-5-4-3 7-2-1 3-8H5v-5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </h4>
+
+          <div class="meta" lang="en">Two hours  Google Calendar Gmail Docs Forms</div>
+          <div class="meta" lang="he">שעתיים  Google Calendar Gmail Docs Forms</div>
+
+          <p lang="en"><strong>Abstract:</strong> Turn calendars into an intelligence hub and blend in travel coordination. Export meeting data find patterns and create weekly strategy briefs. Collect traveler details with Forms generate itineraries in Docs and send confirmations with Gmail.</p>
+          <p lang="he"><strong>תקציר:</strong> הופכים את היומן למרכז תובנות ומשלבים תפעול נסיעות. מוציאים נתונים מהפגישות מזהים דפוסים ומכינים תדריך שבועי. אוספים פרטי נסיעה עם Forms יוצרים מסלולים ב Docs ושולחים אישורים ב Gmail.</p>
+
+          <details>
+            <summary lang="en">Practical wins</summary>
+            <summary lang="he">תוצאות מעשיות</summary>
+            <ul lang="en">
+              <li>Automatic summary of the upcoming week by themes and stakeholders</li>
+              <li>Focus time suggestions and meeting hygiene checklist</li>
+              <li>Forms to Sheets to Docs itinerary merge plus one click email sends</li>
+            </ul>
+            <ul lang="he">
+              <li>תקציר אוטומטי לשבוע הקרוב לפי נושאים ובעלי עניין</li>
+              <li>הצעות לזמני פוקוס וצ׳ק ליסט להיגיינת פגישות</li>
+              <li>זרימה של Forms ל Sheets ל Docs עבור מסלולים עם שליחת מייל בלחיצה</li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="session-hero">
+          <img src="assets/calendar.png" alt="Calendar and travel planning visuals" loading="lazy" />
+        </div>
+      </div>
+    </article>
+
+    <!-- Session 2 -->
+    <article class="card reveal">
+      <div class="session">
+        <div class="num">02</div>
+
+        <div>
+          <h4 lang="en">
+            Slack as a digital command center
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M8 17H5l-2 2V6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M9 10h6M9 7h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M15 21l-2 1 1-2a5 5 0 1 1 1 1z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </h4>
+          <h4 lang="he">
+            Slack כמרכז שליטה דיגיטלי
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M8 17H5l-2 2V6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M9 10h6M9 7h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M15 21l-2 1 1-2a5 5 0 1 1 1 1z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </h4>
+
+          <div class="meta" lang="en">Two hours  Slack Workflow Builder Reminders Integrations</div>
+          <div class="meta" lang="he">שעתיים  Slack Workflow Builder Reminders Integrations</div>
+
+          <p lang="en"><strong>Abstract:</strong> Turn Slack into a working assistant. Build daily digests follow up prompts and smart announcements. Use approved AI to summarize long threads or draft updates. Create channel patterns that reduce noise and speed decisions.</p>
+          <p lang="he"><strong>תקציר:</strong> הופכים את Slack לעוזר פעיל. בונים דוחות יומיים תזכורות אחרי פגישות והכרזות חכמות. משתמשים בבינה מאושרת לסיכום שרשורים ארוכים או ניסוח עדכונים. מגדירים דפוסי ערוצים שמפחיתים רעש ומזרזים החלטות.</p>
+
+          <details>
+            <summary lang="en">Practical wins</summary>
+            <summary lang="he">תוצאות מעשיות</summary>
+            <ul lang="en">
+              <li>Daily today meetings digest in Slack</li>
+              <li>Post meeting follow up workflow and simple handoffs</li>
+              <li>AI assisted summaries and message drafts with approved access</li>
+            </ul>
+            <ul lang="he">
+              <li>דוח פגישות יומי Slack</li>
+              <li>זרימת מעקב אחרי פגישה ומסירות קלות</li>
+              <li>סיכומים וניסוחי הודעות בעזרת בינה מאושרת</li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="session-hero">
+          <img src="assets/slack.jpg" alt="Slack automation interface and notifications" loading="lazy" />
+        </div>
+      </div>
+    </article>
+
+    <!-- Session 3 -->
+    <article class="card reveal">
+      <div class="session">
+        <div class="num">03</div>
+
+        <div>
+          <h4 lang="en">
+            Presenting with impact story and simple web
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 4h16v10H4zM8 18l-2 2M12 18v2M16 18l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M15 7h3M6 7h6M6 10h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </h4>
+          <h4 lang="he">
+            מצגת אפקטיבית סיפור ואתר פנימי פשוט
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 4h16v10H4zM8 18l-2 2M12 18v2M16 18l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M15 7h3M6 7h6M6 10h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </h4>
+
+          <div class="meta" lang="en">Two hours  Slides Google Sites or internal web</div>
+          <div class="meta" lang="he">שעתיים  Slides Google Sites או אתר פנימי</div>
+
+          <p lang="en"><strong>Abstract:</strong> Make ideas clear and memorable. Use AI to outline story flow build slides and create speaker notes. Publish a simple internal site to share resources and event info with no code.</p>
+          <p lang="he"><strong>תקציר:</strong> הופכים רעיונות לברורים ובלתי נשכחים. משתמשים בבינה ליצירת מבנה סיפור בניית שקפים והכנת הערות דובר. מפרסמים אתר פנימי פשוט לשיתוף משאבים ומידע על אירועים בלי קוד.</p>
+
+          <details>
+            <summary lang="en">Practical wins</summary>
+            <summary lang="he">תוצאות מעשיות</summary>
+            <ul lang="en">
+              <li>AI assisted slide outlines and speaker notes</li>
+              <li>On brand slide templates for executive updates</li>
+              <li>Simple internal site to centralize resources or event hubs</li>
+            </ul>
+            <ul lang="he">
+              <li>מבני מצגת והערות דובר בעזרת בינה</li>
+              <li>תבניות מותאמות מותג לעדכוני הנהלה</li>
+              <li>אתר פנימי פשוט לריכוז משאבים או מרכז אירוע</li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="session-hero">
+          <img src="assets/present.jpg" alt="Presentation slides and simple web page visuals" loading="lazy" />
+        </div>
+      </div>
+    </article>
+
+    <!-- Session 4 -->
+    <article class="card reveal">
+      <div class="session">
+        <div class="num">04</div>
+
+        <div>
+          <h4 lang="en">
+            Data whispering with Sheets and AI
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 20V6M10 20V10M16 20V4M4 20h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </h4>
+          <h4 lang="he">
+            לחישת נתונים עם Sheets ובינה
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 20V6M10 20V10M16 20V4M4 20h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </h4>
+
+          <div class="meta" lang="en">Two hours  Google Sheets plus Gemini or approved AI</div>
+          <div class="meta" lang="he">שעתיים  Google Sheets עם Gemini או בינה מאושרת</div>
+
+          <p lang="en"><strong>Abstract:</strong> Make data friendly. Import clean and structure information such as events expenses and feedback. Use AI to summarize classify and pull insights then turn them into action ready notes and simple charts.</p>
+          <p lang="he"><strong>תקציר:</strong> הופכים נתונים לידידותיים. מייבאים מנקים ומארגנים מידע כמו אירועים הוצאות ומשוב. משתמשים בבינה לסיכום סיווג והפקת תובנות ואז ממירים להערות פעולה ותרשימים פשוטים.</p>
+
+          <details>
+            <summary lang="en">Practical wins</summary>
+            <summary lang="he">תוצאות מעשיות</summary>
+            <ul lang="en">
+              <li>One click cleanup and summarization prompts</li>
+              <li>Insight paragraphs for executive communication</li>
+              <li>Filters and charts for a quick dashboard view</li>
+            </ul>
+            <ul lang="he">
+              <li>ניקוי ולסיכום בלחיצה אחת</li>
+              <li>פסקאות תובנה לתקשורת עם הנהלה</li>
+              <li>מסננים ותרשימים לתצוגת דאשבורד מהירה</li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="session-hero">
+          <img src="assets/data.jpg" alt="Data charts and spreadsheet insights" loading="lazy" />
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- Workshop Outcomes -->
+  <section class="wrap" id="outcomes">
+    <h2 class="reveal" lang="en">Workshop outcomes</h2>
+    <h2 class="reveal" lang="he">תוצאות הסדנה</h2>
+
+    <div class="grid-3">
+      <div class="card reveal">
+        <h3 lang="en">Time back</h3>
+        <h3 lang="he">זמן חזרה ליומן</h3>
+        <p lang="en">Save hours each week by automating repeatable tasks such as briefings itineraries and follow ups.</p>
+        <p lang="he">חוסכים שעות בכל שבוע באוטומציה למשימות חוזרות כמו תדריכים מסלולי נסיעה ומעקבים.</p>
+      </div>
+      <div class="card reveal">
+        <h3 lang="en">Quality and consistency</h3>
+        <h3 lang="he">איכות ועקביות</h3>
+        <p lang="en">Raise the floor with reusable templates and checklists. Clear messages fewer errors faster decisions.</p>
+        <p lang="he">מרימים את הרף עם תבניות ורשימות בדיקה לשימוש חוזר. מסרים ברורים פחות טעויות החלטות מהירות.</p>
+      </div>
+      <div class="card reveal">
+        <h3 lang="en">Confidence with AI</h3>
+        <h3 lang="he">ביטחון בעבודה עם בינה</h3>
+        <p lang="en">Build practical skills that make AI safe useful and aligned with the way your leaders work.</p>
+        <p lang="he">בונים מיומנויות מעשיות שהופכות את הבינה לבטוחה שימושית ומותאמת לאופן העבודה של המנהלים.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approved Tools -->
+  <section class="wrap" id="approved">
+    <h2 class="reveal" lang="en">Salesforce approved tools</h2>
+    <h2 class="reveal" lang="he">כלים מאושרים על ידי Salesforce</h2>
+
+    <p class="lead reveal" lang="en">We work with real data through approved tools and settings. All exercises align with your security privacy and data handling rules.</p>
+    <p class="lead reveal" lang="he">עובדים עם נתונים אמיתיים באמצעות כלים והגדרות מאושרים. כל התרגולים בהתאם לאבטחה פרטיות וכללי ניהול המידע.</p>
+
+    <div class="grid-3">
+      <div class="card reveal">
+        <h3><span style="color:var(--bluecheck)">✔</span> <span lang="en">Google Workspace</span><span lang="he">Google Workspace</span></h3>
+        <p lang="en">Calendar Sheets Docs Slides Forms Gmail connected with native features and add ons that your IT approves.</p>
+        <p lang="he">Calendar Sheets Docs Slides Forms Gmail מחוברים עם יכולות מובנות ותוספים מאושרים על ידי ה IT.</p>
+        <details>
+          <summary lang="en">Common automations</summary>
+          <summary lang="he">אוטומציות נפוצות</summary>
+          <ul lang="en">
+            <li>Weekly executive briefing from Calendar to Doc to Email</li>
+            <li>Forms to Sheets to Doc merges such as itineraries and confirmations</li>
+            <li>Sheet insights to Slides for status updates</li>
+          </ul>
+          <ul lang="he">
+            <li>תדרוך הנהלה שבועי מ Calendar ל Doc ל Email</li>
+            <li>מיזוג Forms ל Sheets ל Docs למסלולים ואישורים</li>
+            <li>העברת תובנות מ Sheets ל Slides לעדכוני סטטוס</li>
+          </ul>
+        </details>
+      </div>
+      <div class="card reveal">
+        <h3><span style="color:var(--bluecheck)">✔</span> Slack</h3>
+        <p lang="en">Workflow Builder reminders and integrations to create a command center for executives.</p>
+        <p lang="he">Workflow Builder תזכורות ואינטגרציות ליצירת מרכז שליטה למנהלים.</p>
+        <details>
+          <summary lang="en">Slack nuggets</summary>
+          <summary lang="he">טיפים שימושיים ב Slack</summary>
+          <ul lang="en">
+            <li>Daily today meetings digest</li>
+            <li>Automatic follow up prompts after meetings</li>
+            <li>AI summaries of long threads with approved access</li>
+          </ul>
+          <ul lang="he">
+            <li>דוח פגישות יומי</li>
+            <li>תזכורות אוטומטיות למעקב אחרי פגישות</li>
+            <li>סיכומי שרשורים ארוכים בעזרת בינה מאושרת</li>
+          </ul>
+        </details>
+      </div>
+      <div class="card reveal">
+        <h3><span style="color:var(--bluecheck)">✔</span> <span lang="en">Approved Gen AI</span><span lang="he">בינה מאושרת</span></h3>
+        <p lang="en">Gemini or ChatGPT via your approved access. Clear prompting frameworks bias checks and verification steps.</p>
+        <p lang="he">Gemini או ChatGPT דרך גישה מאושרת. מסגרות הנחיה בדיקות הטיה ושלבי אימות ברורים.</p>
+        <details>
+          <summary lang="en">How we keep it safe</summary>
+          <summary lang="he">כך נשמרת הבטיחות</summary>
+          <ul lang="en">
+            <li>Clear export and import patterns with no shadow tools</li>
+            <li>Templates that encourage review and sign off</li>
+            <li>Configuration first approach that respects governance</li>
+          </ul>
+          <ul lang="he">
+            <li>דפוסי יצוא ויבוא ברורים ללא כלים לא מאושרים</li>
+            <li>תבניות שמעודדות בדיקה ואישור</li>
+            <li>גישה קונפיגורטיבית שמכבדת ממשל נתונים</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Designer -->
+  <section class="wrap" id="designer">
+    <h2 class="reveal" lang="en">Meet the designer and facilitator</h2>
+    <h2 class="reveal" lang="he">מיהו המנחה והמעצב</h2>
+
+    <div class="grid-2">
+      <div class="card reveal">
+        <img src="assets/avishay.png" alt="Avishay Meron" style="border-radius:12px; border:1px solid rgba(124,156,255,.25)" />
+      </div>
+      <div class="card reveal">
+        <h3 lang="en">Avishay Meron</h3>
+        <h3 lang="he">אבישי מרון</h3>
+
+        <p lang="en">Avishay is an expert in AI education and workflow design. He has trained more than one hundred participants in Salesforce Israel with outstanding feedback. His sessions are clear hands on and outcome focused.</p>
+        <p lang="he">אבישי מומחה בחינוך לבינה מלאכותית ובעיצוב תהליכי עבודה. הכשיר למעלה ממאה משתתפים ב Salesforce ישראל עם משוב מצוין. המפגשים שלו ברורים מעשיים וממוקדי תוצאה.</p>
+
+        <p lang="en">Known for practical templates prompt packs and real world exercises that participants can use the same day.</p>
+        <p lang="he">מוקדש לתבניות מעשיות ערכות הנחיה ותרגילים מעולם העבודה לשימוש מידי.</p>
+
+        <p style="display:flex; align-items:center; gap:8px">
+          <a href="https://www.linkedin.com/in/avishay-meron/" target="_blank" rel="noopener">
+            <img src="assets/linkedin.png" alt="LinkedIn" style="height:20px; width:auto; display:inline-block; vertical-align:middle" />
+            <span style="margin-left:6px" lang="en">Connect on LinkedIn</span>
+            <span style="margin-left:6px" lang="he">התחברו ב LinkedIn</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="wrap faq" id="faq">
+    <h2 class="reveal" lang="en">FAQ</h2>
+    <h2 class="reveal" lang="he">שאלות נפוצות</h2>
+
+    <details class="reveal">
+      <summary lang="en">Do I need prior AI experience</summary>
+      <summary lang="he">האם צריך ניסיון קודם בבינה מלאכותית</summary>
+      <p lang="en">No. We start simple and build confidence with real exercises.</p>
+      <p lang="he">לא. מתחילים פשוט ובונים ביטחון בתרגולים מעשיים.</p>
+    </details>
+
+    <details class="reveal">
+      <summary lang="en">Is this program hands on</summary>
+      <summary lang="he">האם התוכנית מעשית</summary>
+      <p lang="en">Yes. Every session includes guided builds and ready to use templates.</p>
+      <p lang="he">כן. בכל מפגש יש בנייה מונחית ותבניות מוכנות לשימוש.</p>
+    </details>
+
+    <details class="reveal">
+      <summary lang="en">What will I take away</summary>
+      <summary lang="he">מה יוצא לי מזה</summary>
+      <p lang="en">Reusable templates prompt packs checklists and a working set of automations that you can adapt to your leader.</p>
+      <p lang="he">תבניות לשימוש חוזר ערכות הנחיה רשימות בדיקה ומערך אוטומציות עובד שתוכלו להתאים למנהל שלכם.</p>
+    </details>
+
+    <details class="reveal">
+      <summary lang="en">How many people can join a cohort</summary>
+      <summary lang="he">כמה אנשים יכולים להשתתף בכל קבוצה</summary>
+      <p lang="en">Ten to twenty participants per run with options to scale using co facilitators.</p>
+      <p lang="he">עשרה עד עשרים משתתפים בכל מחזור עם אפשרות להרחבה בעזרת מנחים נוספים.</p>
+    </details>
+
+    <details class="reveal">
+      <summary lang="en">Can this be delivered on site or virtual</summary>
+      <summary lang="he">האם אפשר לקיים את הסדנה פרונטלית או מרחוק</summary>
+      <p lang="en">Yes. We support both formats with the same hands on flow.</p>
+      <p lang="he">כן. תומכים בשתי המתכונות עם אותו אופי מעשי.</p>
+    </details>
+
+    <!-- Value-focused extras -->
+    <details class="reveal">
+      <summary lang="en">How will this improve executive productivity</summary>
+      <summary lang="he">איך זה משפר את פרודוקטיביות המנהלים</summary>
+      <p lang="en">Assistants automate updates summaries and coordination so executives get clear information faster and make decisions sooner.</p>
+      <p lang="he">עוזרים ועוזרות מאוטמים עדכונים סיכומים ותיאומים כך שהמנהלים מקבלים מידע ברור מהר יותר ומחליטים מוקדם יותר.</p>
+    </details>
+
+    <details class="reveal">
+      <summary lang="en">How fast will we see impact</summary>
+      <summary lang="he">מתי רואים תוצאות</summary>
+      <p lang="en">Immediately. Templates and automations are usable the same day.</p>
+      <p lang="he">מיד. התבניות והאוטומציות זמינות לשימוש באותו יום.</p>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footgrid">
+    <div style="display:flex; align-items:center; gap:12px">
+      <a href="https://amconsultingai.com" target="_blank" rel="noopener" aria-label="AM Consulting website">
+        <img class="logo" src="assets/am_logo.png" alt="AM Consulting logo" />
+      </a>
+      <div>
+        <strong lang="en">Contact</strong>
+        <strong lang="he">יצירת קשר</strong>
+        <a href="mailto:office@amconsultingai.com">office@amconsultingai.com</a><br/>
+        <small lang="en">Compliance and privacy on request  Fits your IT policies</small>
+        <small lang="he">ציות ופרטיות לפי בקשה  מותאם למדיניות ה IT</small>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <small lang="en">© <span id="yr"></span>  Powered by <strong>AM Consulting</strong></small>
+      <small lang="he">© <span id="yr-he"></span>  מופעל על ידי <strong>AM Consulting</strong></small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Typewriter end state for accessibility
+  setTimeout(()=>{
+    document.querySelectorAll('.title.type').forEach(t=>{
+      t.style.whiteSpace = 'normal';
+      t.style.borderRight = '0';
+    });
+  }, 3800);
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+    })
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Year in footer
+  const y = new Date().getFullYear();
+  document.getElementById('yr').textContent = y;
+  document.getElementById('yr-he').textContent = y;
+
+  // Language toggle
+  const root = document.documentElement;
+  const body = document.body;
+  const btnEn = document.getElementById('btn-en');
+  const btnHe = document.getElementById('btn-he');
+
+  function setLang(lang){
+    body.setAttribute('data-lang', lang);
+    root.lang = lang === 'he' ? 'he' : 'en';
+    root.dir  = lang === 'he' ? 'rtl' : 'ltr';
+    btnEn.classList.toggle('active', lang === 'en');
+    btnHe.classList.toggle('active', lang === 'he');
+  }
+
+  btnEn.addEventListener('click', ()=> setLang('en'));
+  btnHe.addEventListener('click', ()=> setLang('he'));
+</script>
+
+</body>
+</html>
